@@ -1,0 +1,100 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Assets/Character/run 8x8.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Character/idle 8x8.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Character/jump 8x8.png" type="Texture" id=3]
+[ext_resource path="res://Player.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Character/fall 8x8.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Music/trijam #252.mp3" type="AudioStream" id=6]
+[ext_resource path="res://Assets/Sound/jump.wav" type="AudioStream" id=7]
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ SubResource( 10 ) ],
+"loop": true,
+"name": "fall",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ) ],
+"loop": false,
+"name": "jump",
+"speed": 12.0
+}, {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "run",
+"speed": 8.0
+}, {
+"frames": [ SubResource( 7 ) ],
+"loop": false,
+"name": "stop",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 3, 4 )
+
+[node name="Player" type="KinematicBody2D" groups=["Player"]]
+script = ExtResource( 4 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 8 )
+animation = "fall"
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, 4 )
+shape = SubResource( 9 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 27, -16 )
+current = true
+limit_left = 0
+limit_top = 0
+limit_bottom = 72
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+
+[node name="CoffeeTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="SlowTimer" type="Timer" parent="."]
+
+[node name="Jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[connection signal="timeout" from="CoffeeTimer" to="." method="_on_CoffeeTimer_timeout"]
+[connection signal="timeout" from="SlowTimer" to="." method="_on_SlowTimer_timeout"]

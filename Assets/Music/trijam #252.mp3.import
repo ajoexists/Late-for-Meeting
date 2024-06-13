@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/trijam #252.mp3-e59ff4db71c29557ad4317c042abece9.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/trijam #252.mp3"
+dest_files=[ "res://.import/trijam #252.mp3-e59ff4db71c29557ad4317c042abece9.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
